@@ -247,10 +247,10 @@ export default class Carousel extends Component {
             if (hasNewSliderWidth || hasNewSliderHeight || hasNewItemWidth || hasNewItemHeight) {
                 this._snapToItem(nextActiveItem, false, false, false, false);
             }
-        } else if (nextFirstItem !== this._previousFirstItem && nextFirstItem !== this._activeItem) {
-            this._activeItem = nextFirstItem;
-            this._previousFirstItem = nextFirstItem;
-            this._snapToItem(nextFirstItem, false, true, false, false);
+        // } else if (nextFirstItem !== this._previousFirstItem && nextFirstItem !== this._activeItem) {
+        //     this._activeItem = nextFirstItem;
+        //     this._previousFirstItem = nextFirstItem;
+        //     this._snapToItem(nextFirstItem, false, true, false, false);
         }
 
         if (this.props.onScroll !== prevProps.onScroll) {
@@ -685,8 +685,8 @@ export default class Carousel extends Component {
         const itemsLength = data && data.length;
         const direction = goTo || itemsLength === 1 ? 'start' : 'end';
 
-        // this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
-        this._scrollTo(offset + 1, false);
+        this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
+        // this._scrollTo(offset + 1, false);
 
         clearTimeout(this._hackSlideAnimationTimeout);
         this._hackSlideAnimationTimeout = setTimeout(() => {
@@ -731,7 +731,6 @@ export default class Carousel extends Component {
     _scrollTo (offset, animated = true) {
         const { vertical } = this.props;
         const wrappedRef = this._getWrappedRef();
-        offset = 1
 
         if (!this._mounted || !wrappedRef) {
             return;
