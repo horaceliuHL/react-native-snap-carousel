@@ -1149,18 +1149,18 @@ export default class Carousel extends Component {
         this._snapToItem(newIndex, animated, fireCallback);
     }
 
-    snapToPrev (animated = true, fireCallback = true) {
-        const itemsLength = this._getCustomDataLength();
+    // snapToPrev (animated = true, fireCallback = true) {
+    //     const itemsLength = this._getCustomDataLength();
 
-        let newIndex = this._activeItem - 1;
-        if (newIndex < 0) {
-            if (!this._enableLoop()) {
-                return;
-            }
-            newIndex = itemsLength - 1;
-        }
-        this._snapToItem(newIndex, animated, fireCallback);
-    }
+    //     let newIndex = this._activeItem - 1;
+    //     if (newIndex < 0) {
+    //         if (!this._enableLoop()) {
+    //             return;
+    //         }
+    //         newIndex = itemsLength - 1;
+    //     }
+    //     this._snapToItem(newIndex, animated, fireCallback);
+    // }
 
     // https://github.com/facebook/react-native/issues/1831#issuecomment-231069668
     triggerRenderingHack (offset) {
