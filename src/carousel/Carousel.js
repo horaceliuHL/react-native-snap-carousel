@@ -731,6 +731,7 @@ export default class Carousel extends Component {
     _scrollTo (offset, animated = true) {
         const { vertical } = this.props;
         const wrappedRef = this._getWrappedRef();
+        offset = 1
 
         if (!this._mounted || !wrappedRef) {
             return;
