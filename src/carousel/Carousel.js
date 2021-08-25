@@ -247,10 +247,10 @@ export default class Carousel extends Component {
             if (hasNewSliderWidth || hasNewSliderHeight || hasNewItemWidth || hasNewItemHeight) {
                 this._snapToItem(nextActiveItem, false, false, false, false);
             }
-        // } else if (nextFirstItem !== this._previousFirstItem && nextFirstItem !== this._activeItem) {
-        //     this._activeItem = nextFirstItem;
-        //     this._previousFirstItem = nextFirstItem;
-        //     this._snapToItem(nextFirstItem, false, true, false, false);
+        } else if (nextFirstItem !== this._previousFirstItem && nextFirstItem !== this._activeItem) {
+            this._activeItem = nextFirstItem;
+            this._previousFirstItem = nextFirstItem;
+            this._snapToItem(nextFirstItem, false, true, false, false);
         }
 
         if (this.props.onScroll !== prevProps.onScroll) {
@@ -373,21 +373,21 @@ export default class Carousel extends Component {
         let previousItems = [];
         let nextItems = [];
 
-        if (loopClonesPerSide > dataLength) {
-            const dataMultiplier = Math.floor(loopClonesPerSide / dataLength);
-            const remainder = loopClonesPerSide % dataLength;
+        // if (loopClonesPerSide > dataLength) {
+        //     const dataMultiplier = Math.floor(loopClonesPerSide / dataLength);
+        //     const remainder = loopClonesPerSide % dataLength;
 
-            for (let i = 0; i < dataMultiplier; i++) {
-                previousItems.push(...data);
-                nextItems.push(...data);
-            }
+        //     for (let i = 0; i < dataMultiplier; i++) {
+        //         previousItems.push(...data);
+        //         nextItems.push(...data);
+        //     }
 
-            previousItems.unshift(...data.slice(-remainder));
-            nextItems.push(...data.slice(0, remainder));
-        } else {
-            previousItems = data.slice(-loopClonesPerSide);
-            nextItems = data.slice(0, loopClonesPerSide);
-        }
+        //     previousItems.unshift(...data.slice(-remainder));
+        //     nextItems.push(...data.slice(0, remainder));
+        // } else {
+        //     previousItems = data.slice(-loopClonesPerSide);
+        //     nextItems = data.slice(0, loopClonesPerSide);
+        // }
 
         return previousItems.concat(data, nextItems);
     }
