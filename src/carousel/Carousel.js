@@ -39,9 +39,6 @@ export default class Carousel extends Component {
         activeSlideAlignment: PropTypes.oneOf(['center', 'end', 'start']),
         activeSlideOffset: PropTypes.number,
         apparitionDelay: PropTypes.number,
-        // autoplay: PropTypes.bool,
-        // autoplayDelay: PropTypes.number,
-        // autoplayInterval: PropTypes.number,
         callbackOffsetMargin: PropTypes.number,
         containerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
         contentContainerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
@@ -76,9 +73,6 @@ export default class Carousel extends Component {
         activeSlideAlignment: 'center',
         activeSlideOffset: 20,
         apparitionDelay: 0,
-        // autoplay: false,
-        // autoplayDelay: 1000,
-        // autoplayInterval: 3000,
         callbackOffsetMargin: 5,
         containerCustomStyle: {},
         contentContainerCustomStyle: {},
@@ -176,9 +170,6 @@ export default class Carousel extends Component {
         const _firstItem = this._getFirstItem(firstItem);
         const apparitionCallback = () => {
             this.setState({ hideCarousel: false });
-            // if (autoplay) {
-            //     this.startAutoplay();
-            // }
         };
 
         this._mounted = true;
@@ -269,11 +260,8 @@ export default class Carousel extends Component {
 
     componentWillUnmount () {
         this._mounted = false;
-        // this.stopAutoplay();
         clearTimeout(this._apparitionTimeout);
         clearTimeout(this._hackSlideAnimationTimeout);
-        // clearTimeout(this._enableAutoplayTimeout);
-        // clearTimeout(this._autoplayTimeout);
         clearTimeout(this._snapNoMomentumTimeout);
         clearTimeout(this._edgeItemTimeout);
         clearTimeout(this._lockScrollTimeout);
@@ -697,7 +685,8 @@ export default class Carousel extends Component {
         const itemsLength = data && data.length;
         const direction = goTo || itemsLength === 1 ? 'start' : 'end';
 
-        this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
+        // this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
+        this._scrollTo(offset + 1, false);
 
         clearTimeout(this._hackSlideAnimationTimeout);
         this._hackSlideAnimationTimeout = setTimeout(() => {
@@ -840,11 +829,6 @@ export default class Carousel extends Component {
     _onTouchStart () {
         const { onTouchStart } = this.props
 
-        // `onTouchStart` is fired even when `scrollEnabled` is set to `false`
-        // if (this._getScrollEnabled() !== false && this._autoplaying) {
-        //     this.pauseAutoPlay();
-        // }
-
         if (onTouchStart) {
             onTouchStart()
         }
@@ -852,11 +836,6 @@ export default class Carousel extends Component {
 
     _onTouchEnd () {
         const { onTouchEnd } = this.props
-
-        // if (this._getScrollEnabled() !== false && this._autoplay && !this._autoplaying) {
-        //     // This event is buggy on Android, so a fallback is provided in _onScrollEnd()
-        //     this.startAutoplay();
-        // }
 
         if (onTouchEnd) {
             onTouchEnd()
@@ -926,15 +905,6 @@ export default class Carousel extends Component {
         if (enableSnap) {
             this._snapScroll(this._scrollEndOffset - this._scrollStartOffset);
         }
-
-        // The touchEnd event is buggy on Android, so this will serve as a fallback whenever needed
-        // https://github.com/facebook/react-native/issues/9439
-        // if (this._autoplay && !this._autoplaying) {
-        //     clearTimeout(this._enableAutoplayTimeout);
-        //     this._enableAutoplayTimeout = setTimeout(() => {
-        //         this.startAutoplay();
-        //     }, autoplayDelay + 50);
-        // }
     }
 
     // Due to a bug, this event is only fired on iOS
@@ -1090,37 +1060,6 @@ export default class Carousel extends Component {
         this._canFireCallback = false;
         onSnapToItem && onSnapToItem(index);
     }
-
-    // startAutoplay () {
-    //     const { autoplayInterval, autoplayDelay } = this.props;
-    //     this._autoplay = true;
-
-    //     if (this._autoplaying) {
-    //         return;
-    //     }
-
-    //     clearTimeout(this._autoplayTimeout);
-    //     this._autoplayTimeout = setTimeout(() => {
-    //         this._autoplaying = true;
-    //         this._autoplayInterval = setInterval(() => {
-    //             if (this._autoplaying) {
-    //                 this.snapToNext();
-    //             }
-    //         }, autoplayInterval);
-    //     }, autoplayDelay);
-    // }
-
-    // pauseAutoPlay () {
-    //     this._autoplaying = false;
-    //     clearTimeout(this._autoplayTimeout);
-    //     clearTimeout(this._enableAutoplayTimeout);
-    //     clearInterval(this._autoplayInterval);
-    // }
-
-    // stopAutoplay () {
-    //     this._autoplay = false;
-    //     this.pauseAutoPlay();
-    // }
 
     snapToItem (index, animated = true, fireCallback = true) {
         if (!index || index < 0) {
