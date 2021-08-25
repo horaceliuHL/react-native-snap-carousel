@@ -971,7 +971,6 @@ export default class Carousel extends Component {
     }
 
     _snapToItem (index, animated = true, fireCallback = true, initial = false, lockScroll = true) {
-        console.log("HELLO WASSUP TESTING")
         const { enableMomentum, onSnapToItem, onBeforeSnapToItem } = this.props;
         const itemsLength = this._getCustomDataLength();
         const wrappedRef = this._getWrappedRef();
@@ -1005,7 +1004,7 @@ export default class Carousel extends Component {
             }
         }
 
-        this._itemToSnapTo = index;
+        this._itemToSnapTo = 1;
         this._scrollOffsetRef = this._positions[index] && this._positions[index].start;
         this._onScrollTriggered = false;
 
