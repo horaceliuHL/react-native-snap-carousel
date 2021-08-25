@@ -373,21 +373,21 @@ export default class Carousel extends Component {
         let previousItems = [];
         let nextItems = [];
 
-        // if (loopClonesPerSide > dataLength) {
-        //     const dataMultiplier = Math.floor(loopClonesPerSide / dataLength);
-        //     const remainder = loopClonesPerSide % dataLength;
+        if (loopClonesPerSide > dataLength) {
+            const dataMultiplier = Math.floor(loopClonesPerSide / dataLength);
+            const remainder = loopClonesPerSide % dataLength;
 
-        //     for (let i = 0; i < dataMultiplier; i++) {
-        //         previousItems.push(...data);
-        //         nextItems.push(...data);
-        //     }
+            for (let i = 0; i < dataMultiplier; i++) {
+                previousItems.push(...data);
+                nextItems.push(...data);
+            }
 
-        //     previousItems.unshift(...data.slice(-remainder));
-        //     nextItems.push(...data.slice(0, remainder));
-        // } else {
-        //     previousItems = data.slice(-loopClonesPerSide);
-        //     nextItems = data.slice(0, loopClonesPerSide);
-        // }
+            previousItems.unshift(...data.slice(-remainder));
+            nextItems.push(...data.slice(0, remainder));
+        } else {
+            previousItems = data.slice(-loopClonesPerSide);
+            nextItems = data.slice(0, loopClonesPerSide);
+        }
 
         return previousItems.concat(data, nextItems);
     }
@@ -971,6 +971,7 @@ export default class Carousel extends Component {
     }
 
     _snapToItem (index, animated = true, fireCallback = true, initial = false, lockScroll = true) {
+        console.log("HELLO WASSUP TESTING")
         const { enableMomentum, onSnapToItem, onBeforeSnapToItem } = this.props;
         const itemsLength = this._getCustomDataLength();
         const wrappedRef = this._getWrappedRef();
