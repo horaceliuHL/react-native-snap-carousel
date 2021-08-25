@@ -39,9 +39,9 @@ export default class Carousel extends Component {
         activeSlideAlignment: PropTypes.oneOf(['center', 'end', 'start']),
         activeSlideOffset: PropTypes.number,
         apparitionDelay: PropTypes.number,
-        autoplay: PropTypes.bool,
-        autoplayDelay: PropTypes.number,
-        autoplayInterval: PropTypes.number,
+        // autoplay: PropTypes.bool,
+        // autoplayDelay: PropTypes.number,
+        // autoplayInterval: PropTypes.number,
         callbackOffsetMargin: PropTypes.number,
         containerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
         contentContainerCustomStyle: ViewPropTypes ? ViewPropTypes.style : View.propTypes.style,
@@ -76,9 +76,9 @@ export default class Carousel extends Component {
         activeSlideAlignment: 'center',
         activeSlideOffset: 20,
         apparitionDelay: 0,
-        autoplay: false,
-        autoplayDelay: 1000,
-        autoplayInterval: 3000,
+        // autoplay: false,
+        // autoplayDelay: 1000,
+        // autoplayInterval: 3000,
         callbackOffsetMargin: 5,
         containerCustomStyle: {},
         contentContainerCustomStyle: {},
@@ -135,7 +135,7 @@ export default class Carousel extends Component {
         this._onLayout = this._onLayout.bind(this);
         this._onScroll = this._onScroll.bind(this);
         this._onScrollBeginDrag = props.enableSnap ? this._onScrollBeginDrag.bind(this) : undefined;
-        this._onScrollEnd = props.enableSnap || props.autoplay ? this._onScrollEnd.bind(this) : undefined;
+        this._onScrollEnd = props.enableSnap ? this._onScrollEnd.bind(this) : undefined;
         this._onScrollEndDrag = !props.enableMomentum ? this._onScrollEndDrag.bind(this) : undefined;
         this._onMomentumScrollEnd = props.enableMomentum ? this._onMomentumScrollEnd.bind(this) : undefined;
         this._onTouchStart = this._onTouchStart.bind(this);
@@ -172,13 +172,13 @@ export default class Carousel extends Component {
     }
 
     componentDidMount () {
-        const { apparitionDelay, autoplay, firstItem } = this.props;
+        const { apparitionDelay, firstItem } = this.props;
         const _firstItem = this._getFirstItem(firstItem);
         const apparitionCallback = () => {
             this.setState({ hideCarousel: false });
-            if (autoplay) {
-                this.startAutoplay();
-            }
+            // if (autoplay) {
+            //     this.startAutoplay();
+            // }
         };
 
         this._mounted = true;
@@ -269,11 +269,11 @@ export default class Carousel extends Component {
 
     componentWillUnmount () {
         this._mounted = false;
-        this.stopAutoplay();
+        // this.stopAutoplay();
         clearTimeout(this._apparitionTimeout);
         clearTimeout(this._hackSlideAnimationTimeout);
-        clearTimeout(this._enableAutoplayTimeout);
-        clearTimeout(this._autoplayTimeout);
+        // clearTimeout(this._enableAutoplayTimeout);
+        // clearTimeout(this._autoplayTimeout);
         clearTimeout(this._snapNoMomentumTimeout);
         clearTimeout(this._edgeItemTimeout);
         clearTimeout(this._lockScrollTimeout);
@@ -841,9 +841,9 @@ export default class Carousel extends Component {
         const { onTouchStart } = this.props
 
         // `onTouchStart` is fired even when `scrollEnabled` is set to `false`
-        if (this._getScrollEnabled() !== false && this._autoplaying) {
-            this.pauseAutoPlay();
-        }
+        // if (this._getScrollEnabled() !== false && this._autoplaying) {
+        //     this.pauseAutoPlay();
+        // }
 
         if (onTouchStart) {
             onTouchStart()
@@ -853,10 +853,10 @@ export default class Carousel extends Component {
     _onTouchEnd () {
         const { onTouchEnd } = this.props
 
-        if (this._getScrollEnabled() !== false && this._autoplay && !this._autoplaying) {
-            // This event is buggy on Android, so a fallback is provided in _onScrollEnd()
-            this.startAutoplay();
-        }
+        // if (this._getScrollEnabled() !== false && this._autoplay && !this._autoplaying) {
+        //     // This event is buggy on Android, so a fallback is provided in _onScrollEnd()
+        //     this.startAutoplay();
+        // }
 
         if (onTouchEnd) {
             onTouchEnd()
@@ -908,7 +908,7 @@ export default class Carousel extends Component {
     }
 
     _onScrollEnd (event) {
-        const { autoplayDelay, enableSnap } = this.props;
+        const { enableSnap } = this.props;
 
         if (this._ignoreNextMomentum) {
             // iOS fix
@@ -929,12 +929,12 @@ export default class Carousel extends Component {
 
         // The touchEnd event is buggy on Android, so this will serve as a fallback whenever needed
         // https://github.com/facebook/react-native/issues/9439
-        if (this._autoplay && !this._autoplaying) {
-            clearTimeout(this._enableAutoplayTimeout);
-            this._enableAutoplayTimeout = setTimeout(() => {
-                this.startAutoplay();
-            }, autoplayDelay + 50);
-        }
+        // if (this._autoplay && !this._autoplaying) {
+        //     clearTimeout(this._enableAutoplayTimeout);
+        //     this._enableAutoplayTimeout = setTimeout(() => {
+        //         this.startAutoplay();
+        //     }, autoplayDelay + 50);
+        // }
     }
 
     // Due to a bug, this event is only fired on iOS
@@ -1091,36 +1091,36 @@ export default class Carousel extends Component {
         onSnapToItem && onSnapToItem(index);
     }
 
-    startAutoplay () {
-        const { autoplayInterval, autoplayDelay } = this.props;
-        this._autoplay = true;
+    // startAutoplay () {
+    //     const { autoplayInterval, autoplayDelay } = this.props;
+    //     this._autoplay = true;
 
-        if (this._autoplaying) {
-            return;
-        }
+    //     if (this._autoplaying) {
+    //         return;
+    //     }
 
-        clearTimeout(this._autoplayTimeout);
-        this._autoplayTimeout = setTimeout(() => {
-            this._autoplaying = true;
-            this._autoplayInterval = setInterval(() => {
-                if (this._autoplaying) {
-                    this.snapToNext();
-                }
-            }, autoplayInterval);
-        }, autoplayDelay);
-    }
+    //     clearTimeout(this._autoplayTimeout);
+    //     this._autoplayTimeout = setTimeout(() => {
+    //         this._autoplaying = true;
+    //         this._autoplayInterval = setInterval(() => {
+    //             if (this._autoplaying) {
+    //                 this.snapToNext();
+    //             }
+    //         }, autoplayInterval);
+    //     }, autoplayDelay);
+    // }
 
-    pauseAutoPlay () {
-        this._autoplaying = false;
-        clearTimeout(this._autoplayTimeout);
-        clearTimeout(this._enableAutoplayTimeout);
-        clearInterval(this._autoplayInterval);
-    }
+    // pauseAutoPlay () {
+    //     this._autoplaying = false;
+    //     clearTimeout(this._autoplayTimeout);
+    //     clearTimeout(this._enableAutoplayTimeout);
+    //     clearInterval(this._autoplayInterval);
+    // }
 
-    stopAutoplay () {
-        this._autoplay = false;
-        this.pauseAutoPlay();
-    }
+    // stopAutoplay () {
+    //     this._autoplay = false;
+    //     this.pauseAutoPlay();
+    // }
 
     snapToItem (index, animated = true, fireCallback = true) {
         if (!index || index < 0) {
@@ -1148,19 +1148,6 @@ export default class Carousel extends Component {
         }
         this._snapToItem(newIndex, animated, fireCallback);
     }
-
-    // snapToPrev (animated = true, fireCallback = true) {
-    //     const itemsLength = this._getCustomDataLength();
-
-    //     let newIndex = this._activeItem - 1;
-    //     if (newIndex < 0) {
-    //         if (!this._enableLoop()) {
-    //             return;
-    //         }
-    //         newIndex = itemsLength - 1;
-    //     }
-    //     this._snapToItem(newIndex, animated, fireCallback);
-    // }
 
     // https://github.com/facebook/react-native/issues/1831#issuecomment-231069668
     triggerRenderingHack (offset) {
