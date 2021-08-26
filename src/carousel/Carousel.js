@@ -683,10 +683,10 @@ export default class Carousel extends Component {
         }
 
         const itemsLength = data && data.length;
-        const direction = goTo || itemsLength === 1 ? 'start' : 'end';
+        // const direction = goTo || itemsLength === 1 ? 'start' : 'end';
 
-        this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
-        // this._scrollTo(offset + 1, false);
+        // this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
+        this._scrollTo(offset + 1, false);
 
         clearTimeout(this._hackSlideAnimationTimeout);
         this._hackSlideAnimationTimeout = setTimeout(() => {
@@ -970,74 +970,74 @@ export default class Carousel extends Component {
         }
     }
 
-    // _snapToItem (index, animated = true, fireCallback = true, initial = false, lockScroll = true) {
-    //     const { enableMomentum, onSnapToItem, onBeforeSnapToItem } = this.props;
-    //     const itemsLength = this._getCustomDataLength();
-    //     const wrappedRef = this._getWrappedRef();
+    _snapToItem (index, animated = true, fireCallback = true, initial = false, lockScroll = true) {
+        const { enableMomentum, onSnapToItem, onBeforeSnapToItem } = this.props;
+        const itemsLength = this._getCustomDataLength();
+        const wrappedRef = this._getWrappedRef();
 
-    //     if (!itemsLength || !wrappedRef) {
-    //         return;
-    //     }
+        if (!itemsLength || !wrappedRef) {
+            return;
+        }
 
-    //     if (!index || index < 0) {
-    //         index = 0;
-    //     } else if (itemsLength > 0 && index >= itemsLength) {
-    //         index = itemsLength - 1;
-    //     }
+        if (!index || index < 0) {
+            index = 0;
+        } else if (itemsLength > 0 && index >= itemsLength) {
+            index = itemsLength - 1;
+        }
 
-    //     if (index !== this._previousActiveItem) {
-    //         this._previousActiveItem = index;
+        if (index !== this._previousActiveItem) {
+            this._previousActiveItem = index;
 
-    //         // Placed here to allow overscrolling for edges items
-    //         if (lockScroll && this._canLockScroll()) {
-    //             this._lockScroll();
-    //         }
+            // Placed here to allow overscrolling for edges items
+            if (lockScroll && this._canLockScroll()) {
+                this._lockScroll();
+            }
 
-    //         if (fireCallback) {
-    //             if (onBeforeSnapToItem) {
-    //                 this._canFireBeforeCallback = true;
-    //             }
+            if (fireCallback) {
+                if (onBeforeSnapToItem) {
+                    this._canFireBeforeCallback = true;
+                }
 
-    //             if (onSnapToItem) {
-    //                 this._canFireCallback = true;
-    //             }
-    //         }
-    //     }
+                if (onSnapToItem) {
+                    this._canFireCallback = true;
+                }
+            }
+        }
 
-    //     this._itemToSnapTo = 1;
-    //     this._scrollOffsetRef = this._positions[index] && this._positions[index].start;
-    //     this._onScrollTriggered = false;
+        this._itemToSnapTo = 1;
+        this._scrollOffsetRef = this._positions[index] && this._positions[index].start;
+        this._onScrollTriggered = false;
 
-    //     if (!this._scrollOffsetRef && this._scrollOffsetRef !== 0) {
-    //         return;
-    //     }
+        if (!this._scrollOffsetRef && this._scrollOffsetRef !== 0) {
+            return;
+        }
 
-    //     this._scrollTo(this._scrollOffsetRef, animated);
+        this._scrollTo(this._scrollOffsetRef, animated);
 
-    //     this._scrollEndOffset = this._currentContentOffset;
+        this._scrollEndOffset = this._currentContentOffset;
 
-    //     if (enableMomentum) {
-    //         // iOS fix, check the note in the constructor
-    //         if (!initial) {
-    //             this._ignoreNextMomentum = true;
-    //         }
+        if (enableMomentum) {
+            // iOS fix, check the note in the constructor
+            if (!initial) {
+                this._ignoreNextMomentum = true;
+            }
 
-    //         // When momentum is enabled and the user is overscrolling or swiping very quickly,
-    //         // 'onScroll' is not going to be triggered for edge items. Then callback won't be
-    //         // fired and loop won't work since the scrollview is not going to be repositioned.
-    //         // As a workaround, '_onScroll()' will be called manually for these items if a given
-    //         // condition hasn't been met after a small delay.
-    //         // WARNING: this is ok only when relying on 'momentumScrollEnd', not with 'scrollEndDrag'
-    //         if (index === 0 || index === itemsLength - 1) {
-    //             clearTimeout(this._edgeItemTimeout);
-    //             this._edgeItemTimeout = setTimeout(() => {
-    //                 if (!initial && index === this._activeItem && !this._onScrollTriggered) {
-    //                     this._onScroll();
-    //                 }
-    //             }, 250);
-    //         }
-    //     }
-    // }
+            // When momentum is enabled and the user is overscrolling or swiping very quickly,
+            // 'onScroll' is not going to be triggered for edge items. Then callback won't be
+            // fired and loop won't work since the scrollview is not going to be repositioned.
+            // As a workaround, '_onScroll()' will be called manually for these items if a given
+            // condition hasn't been met after a small delay.
+            // WARNING: this is ok only when relying on 'momentumScrollEnd', not with 'scrollEndDrag'
+            if (index === 0 || index === itemsLength - 1) {
+                clearTimeout(this._edgeItemTimeout);
+                this._edgeItemTimeout = setTimeout(() => {
+                    if (!initial && index === this._activeItem && !this._onScrollTriggered) {
+                        this._onScroll();
+                    }
+                }, 250);
+            }
+        }
+    }
 
     _onBeforeSnap (index) {
         const { onBeforeSnapToItem } = this.props;
