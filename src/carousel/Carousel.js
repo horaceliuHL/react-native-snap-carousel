@@ -247,10 +247,10 @@ export default class Carousel extends Component {
             if (hasNewSliderWidth || hasNewSliderHeight || hasNewItemWidth || hasNewItemHeight) {
                 this._snapToItem(nextActiveItem, false, false, false, false);
             }
-        } else if (nextFirstItem !== this._previousFirstItem && nextFirstItem !== this._activeItem) {
-            this._activeItem = nextFirstItem;
-            this._previousFirstItem = nextFirstItem;
-            this._snapToItem(nextFirstItem, false, true, false, false);
+        // } else if (nextFirstItem !== this._previousFirstItem && nextFirstItem !== this._activeItem) {
+        //     this._activeItem = nextFirstItem;
+        //     this._previousFirstItem = nextFirstItem;
+        //     this._snapToItem(nextFirstItem, false, true, false, false);
         }
 
         if (this.props.onScroll !== prevProps.onScroll) {
@@ -684,7 +684,6 @@ export default class Carousel extends Component {
 
         const itemsLength = data && data.length;
         const direction = goTo || itemsLength === 1 ? 'start' : 'end';
-        console.log("TESTING TO SEE IF THIS WORKS")
 
         this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
         // this._scrollTo(offset + 1, false);
