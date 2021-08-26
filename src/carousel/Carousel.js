@@ -684,6 +684,7 @@ export default class Carousel extends Component {
 
         const itemsLength = data && data.length;
         const direction = goTo || itemsLength === 1 ? 'start' : 'end';
+        console.log("TESTING TO SEE IF THIS WORKS")
 
         this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
         // this._scrollTo(offset + 1, false);
