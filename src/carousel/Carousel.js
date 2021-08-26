@@ -685,8 +685,8 @@ export default class Carousel extends Component {
         const itemsLength = data && data.length;
         // const direction = goTo || itemsLength === 1 ? 'start' : 'end';
 
-        // this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
-        this._scrollTo(offset + 1, false);
+        this._scrollTo(offset + (direction === 'start' ? -1 : 1), false);
+        // this._scrollTo(offset + 1, false);
 
         clearTimeout(this._hackSlideAnimationTimeout);
         this._hackSlideAnimationTimeout = setTimeout(() => {
