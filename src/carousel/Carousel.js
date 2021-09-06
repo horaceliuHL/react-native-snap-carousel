@@ -548,13 +548,13 @@ export default class Carousel extends Component {
         for (let i = 0; i < this._positions.length; i++) {
             const { start, end } = this._positions[i];
             if (center + centerOffset >= start && center - centerOffset <= end) {
-                if (i > this._activeItem){
-                    console.log("SWIPING IN CORRECT DIRECTION")
-                }
-                console.log("hi")
-                console.log(i)
-                console.log("what")
-                console.log(this._activeItem)
+                // if (i > this._activeItem){
+                //     console.log("SWIPING IN CORRECT DIRECTION")
+                // }
+                // console.log("hi")
+                // console.log(i)
+                // console.log("what")
+                // console.log(this._activeItem)
                 return i;
             }
         }
@@ -767,6 +767,11 @@ export default class Carousel extends Component {
 
         const scrollOffset = event ? this._getScrollOffset(event) : this._currentContentOffset;
         const nextActiveItem = this._getActiveItem(scrollOffset);
+        console.log(nextActiveItem)
+        console.log("hey")
+        console.log(this.currentIndex)
+        console.log(this._activeItem)
+        console.log("kms")
         const itemReached = nextActiveItem === this._itemToSnapTo;
         const scrollConditions =
             scrollOffset >= this._scrollOffsetRef - callbackOffsetMargin &&
