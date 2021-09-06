@@ -548,6 +548,8 @@ export default class Carousel extends Component {
         for (let i = 0; i < this._positions.length; i++) {
             const { start, end } = this._positions[i];
             if (center + centerOffset >= start && center - centerOffset <= end) {
+                console.log("getActiveItem")
+                console.log(i)
                 return i;
             }
         }
@@ -972,11 +974,11 @@ export default class Carousel extends Component {
     }
 
     _snapToItem (index, animated = true, fireCallback = true, initial = false, lockScroll = true) {
-        console.log("snap")
-        if (index === this._previousActiveItem){
-            console.log("trying to swipe to prev?")
-            return;
-        }
+        // console.log("snap")
+        // if (index === this._previousActiveItem){
+        //     console.log("trying to swipe to prev?")
+        //     return;
+        // }
         const { enableMomentum, onSnapToItem, onBeforeSnapToItem } = this.props;
         const itemsLength = this._getCustomDataLength();
         const wrappedRef = this._getWrappedRef();
