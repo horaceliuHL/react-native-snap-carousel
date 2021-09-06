@@ -973,6 +973,10 @@ export default class Carousel extends Component {
 
     _snapToItem (index, animated = true, fireCallback = true, initial = false, lockScroll = true) {
         console.log("snap")
+        if (index === this._previousActiveItem){
+            console.log("trying to swipe to prev?")
+            return;
+        }
         const { enableMomentum, onSnapToItem, onBeforeSnapToItem } = this.props;
         const itemsLength = this._getCustomDataLength();
         const wrappedRef = this._getWrappedRef();
