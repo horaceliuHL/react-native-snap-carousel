@@ -766,12 +766,16 @@ export default class Carousel extends Component {
         const { callbackOffsetMargin, enableMomentum, onScroll } = this.props;
 
         const scrollOffset = event ? this._getScrollOffset(event) : this._currentContentOffset;
+        console.log("callbackOffsetMargin", callbackOffsetMargin)
+        console.log("enableMomentum", enableMomentum)
+        console.log("onScroll", onScroll)
+        console.log("scrollOffset", scrollOffset)
         const nextActiveItem = this._getActiveItem(scrollOffset);
-        console.log(nextActiveItem)
-        console.log("hey")
-        console.log(this.currentIndex)
-        console.log(this._activeItem)
-        console.log("kms")
+        // console.log(nextActiveItem)
+        // console.log("hey")
+        // console.log(this.currentIndex)
+        // console.log(this._activeItem)
+        // console.log("kms")
         const itemReached = nextActiveItem === this._itemToSnapTo;
         const scrollConditions =
             scrollOffset >= this._scrollOffsetRef - callbackOffsetMargin &&
