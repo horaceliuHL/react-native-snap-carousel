@@ -193,10 +193,12 @@ export default class Carousel extends Component {
             }
         });
 
-        console.log("testing again")
     }
 
     shouldComponentUpdate (nextProps, nextState) {
+        console.log("running?")
+        console.log(nextProps)
+        console.log(nextState)
         if (this.props.shouldOptimizeUpdates === false) {
             return true;
         } else {
