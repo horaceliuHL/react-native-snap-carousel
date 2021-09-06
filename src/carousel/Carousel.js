@@ -204,7 +204,6 @@ export default class Carousel extends Component {
     }
 
     componentDidUpdate (prevProps) {
-        console.log("updating component check")
         const { interpolators } = this.state;
         const { firstItem, itemHeight, itemWidth, scrollEnabled, sliderHeight, sliderWidth } = this.props;
         const itemsLength = this._getCustomDataLength(this.props);
@@ -973,6 +972,7 @@ export default class Carousel extends Component {
     }
 
     _snapToItem (index, animated = true, fireCallback = true, initial = false, lockScroll = true) {
+        console.log("snap")
         const { enableMomentum, onSnapToItem, onBeforeSnapToItem } = this.props;
         const itemsLength = this._getCustomDataLength();
         const wrappedRef = this._getWrappedRef();
