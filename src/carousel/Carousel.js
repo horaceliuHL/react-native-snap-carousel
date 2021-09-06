@@ -192,6 +192,8 @@ export default class Carousel extends Component {
                 apparitionCallback();
             }
         });
+
+        console.log("testing again")
     }
 
     shouldComponentUpdate (nextProps, nextState) {
@@ -247,10 +249,10 @@ export default class Carousel extends Component {
             if (hasNewSliderWidth || hasNewSliderHeight || hasNewItemWidth || hasNewItemHeight) {
                 this._snapToItem(nextActiveItem, false, false, false, false);
             }
-        // } else if (nextFirstItem !== this._previousFirstItem && nextFirstItem !== this._activeItem) {
-        //     this._activeItem = nextFirstItem;
-        //     this._previousFirstItem = nextFirstItem;
-        //     this._snapToItem(nextFirstItem, false, true, false, false);
+        } else if (nextFirstItem !== this._previousFirstItem && nextFirstItem !== this._activeItem) {
+            this._activeItem = nextFirstItem;
+            this._previousFirstItem = nextFirstItem;
+            this._snapToItem(nextFirstItem, false, true, false, false);
         }
 
         if (this.props.onScroll !== prevProps.onScroll) {
