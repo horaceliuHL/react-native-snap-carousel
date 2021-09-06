@@ -196,9 +196,6 @@ export default class Carousel extends Component {
     }
 
     shouldComponentUpdate (nextProps, nextState) {
-        console.log("running?")
-        console.log(nextProps)
-        console.log(nextState)
         if (this.props.shouldOptimizeUpdates === false) {
             return true;
         } else {
@@ -207,6 +204,7 @@ export default class Carousel extends Component {
     }
 
     componentDidUpdate (prevProps) {
+        console.log("updating component check")
         const { interpolators } = this.state;
         const { firstItem, itemHeight, itemWidth, scrollEnabled, sliderHeight, sliderWidth } = this.props;
         const itemsLength = this._getCustomDataLength(this.props);
