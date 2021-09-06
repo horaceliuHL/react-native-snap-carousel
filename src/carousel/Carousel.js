@@ -548,7 +548,12 @@ export default class Carousel extends Component {
         for (let i = 0; i < this._positions.length; i++) {
             const { start, end } = this._positions[i];
             if (center + centerOffset >= start && center - centerOffset <= end) {
-                if (i > this.currentIndex) return i;
+                // if (i > this.currentIndex) 
+                console.log("hi")
+                console.log(i)
+                console.log("what")
+                console.log(this.currentIndex)
+                return i;
             }
         }
 
