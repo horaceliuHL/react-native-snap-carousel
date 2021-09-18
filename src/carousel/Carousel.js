@@ -772,11 +772,11 @@ export default class Carousel extends Component {
         console.log("currentOffset", this._currentContentOffset)
         if (scrollOffset < this._currentContentOffset){
             console.log("SCROLLING IN WRONG DIRECTION");
-            nextActiveItem = this._getActiveItem(this._currentContentOffset);
-            this._onSnap(this._getDataIndex(nextActiveItem));
-        } else 
-        {
-            nextActiveItem = this._getActiveItem(scrollOffset);
+            this._setScrollEnabled(false);
+        } else{
+            this._setScrollEnabled(true);
+        }
+        nextActiveItem = this._getActiveItem(scrollOffset);
         // console.log(nextActiveItem)
         // console.log("hey")
         // console.log(this.currentIndex)
@@ -838,7 +838,6 @@ export default class Carousel extends Component {
             onScroll(event);
         }
     }
-    }
 
     _onStartShouldSetResponderCapture (event) {
         const { onStartShouldSetResponderCapture } = this.props;
@@ -875,16 +874,17 @@ export default class Carousel extends Component {
         }
 
         this._scrollStartOffset = this._getScrollOffset(event);
-        if (this._scrollStartOffset > this._currentContentOffset){
-            this._scrollStartActive = this._getActiveItem(
-              this._scrollStartOffset
-            );
-            this._ignoreNextMomentum = false;
-            // this._canFireCallback = false;
+        if (this._scrollStartOffset < this._currentContentOffset){
+            this._setScrollEnabled(false);
+        } else{
+            this._setScrollEnabled(true);
+        }
+        this._scrollStartActive = this._getActiveItem(this._scrollStartOffset);
+        this._ignoreNextMomentum = false;
+        // this._canFireCallback = false;
 
-            if (onScrollBeginDrag) {
-              onScrollBeginDrag(event);
-            }
+        if (onScrollBeginDrag) {
+            onScrollBeginDrag(event);
         }
     }
 
