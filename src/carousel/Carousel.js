@@ -773,7 +773,10 @@ export default class Carousel extends Component {
         if (scrollOffset < this._currentContentOffset){
             console.log("SCROLLING IN WRONG DIRECTION");
             nextActiveItem = this._getActiveItem(this._currentContentOffset);
-        } else nextActiveItem = this._getActiveItem(scrollOffset);
+            this._onSnap(this._getDataIndex(nextActiveItem));
+        } else 
+        {
+            nextActiveItem = this._getActiveItem(scrollOffset);
         // console.log(nextActiveItem)
         // console.log("hey")
         // console.log(this.currentIndex)
@@ -834,6 +837,7 @@ export default class Carousel extends Component {
         if (typeof onScroll === "function" && event) {
             onScroll(event);
         }
+    }
     }
 
     _onStartShouldSetResponderCapture (event) {
