@@ -875,13 +875,16 @@ export default class Carousel extends Component {
         }
 
         this._scrollStartOffset = this._getScrollOffset(event);
-        // if (this._scrollStartOffset < this._currentContentOffset) return;
-        this._scrollStartActive = this._getActiveItem(this._scrollStartOffset);
-        this._ignoreNextMomentum = false;
-        // this._canFireCallback = false;
+        if (this._scrollStartOffset > this._currentContentOffset){
+            this._scrollStartActive = this._getActiveItem(
+              this._scrollStartOffset
+            );
+            this._ignoreNextMomentum = false;
+            // this._canFireCallback = false;
 
-        if (onScrollBeginDrag) {
-            onScrollBeginDrag(event);
+            if (onScrollBeginDrag) {
+              onScrollBeginDrag(event);
+            }
         }
     }
 
