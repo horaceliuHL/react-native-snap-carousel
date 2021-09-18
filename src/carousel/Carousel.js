@@ -767,13 +767,13 @@ export default class Carousel extends Component {
         const { callbackOffsetMargin, enableMomentum, onScroll } = this.props;
 
         const scrollOffset = event ? this._getScrollOffset(event) : this._currentContentOffset;
+        let nextActiveItem;
         console.log("scrollOffset", scrollOffset)
         console.log("currentOffset", this._currentContentOffset)
         if (scrollOffset < this._currentContentOffset){
             console.log("SCROLLING IN WRONG DIRECTION");
-            return;
-        } 
-        const nextActiveItem = this._getActiveItem(scrollOffset);
+            nextActiveItem = this._getActiveItem(this._currentContentOffset);
+        } else nextActiveItem = this._getActiveItem(scrollOffset);
         // console.log(nextActiveItem)
         // console.log("hey")
         // console.log(this.currentIndex)
